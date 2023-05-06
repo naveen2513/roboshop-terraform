@@ -88,6 +88,7 @@ resource "aws_instance" "cart" {
   tags = {
     Name = "cart"
   }
+}
 
   resource "aws_route53_record" "cart" {
     zone_id = "Z09466133SH7C438NSMD2"
