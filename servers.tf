@@ -20,16 +20,13 @@ resource "aws_route53_record" "frontend" {
 
 
   resource "aws_instance" "frontend" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = "t3.micro"
+    ami           = data.aws_ami.centos.image_id
+    instance_type = "t3.micro"
 
-  tags = {
-    Name = "frontend"
+    tags = {
+      Name = "frontend"
+    }
   }
-}
-output "frontend" {
-  value = aws_instance.frontend.private_ip
-}
 resource "aws_route53_record" "mongodb" {
   zone_id = "Z09466133SH7C438NSMD2"
   name    = "mongodb.naveendevops2.online"
@@ -45,9 +42,7 @@ resource "aws_instance" "mongodb" {
     Name = "mongodb"
   }
 }
-output "monogodb" {
-  value = aws_instance.mongodb.private_ip
-}
+
 
 resource "aws_instance" "catalogue" {
   ami           = data.aws_ami.centos.image_id
@@ -57,6 +52,7 @@ resource "aws_instance" "catalogue" {
     Name = "cataologue"
   }
 }
+
 resource "aws_route53_record" "catalogue" {
   zone_id = "Z09466133SH7C438NSMD2"
   name    = "catalogue.naveendevops2.online"
