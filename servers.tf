@@ -8,6 +8,13 @@ output "ami" {
   value = data.aws_ami.centos.image_id
 }
 
+variable "instance_type" {
+  default = "t3.small"
+}
+output "instance_type" {
+  value = var.instance_type
+}
+
 resource "aws_route53_record" "frontend" {
   zone_id = "Z09466133SH7C438NSMD2"
   name    = "frontend.naveendevops2.online"
