@@ -53,6 +53,10 @@ variable "components" {
       name = "rabbitmq"
       instance_type = "t3.small"
     }
+    redis = {
+      name = "redis"
+      instance_type = "t3.small"
+    }
     payment = {
       name = "payment"
       instance_type = "t3.small"
