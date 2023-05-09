@@ -67,7 +67,7 @@ variable "components" {
 
 
 
-resource "aws_instance" "instances" {
+resource "aws_instance" "instance" {
      for_each = var.components
       ami    = data.aws_ami.centos.image_id
      instance_type = each.value["instance_type"]
@@ -77,4 +77,12 @@ resource "aws_instance" "instances" {
   tags = {
     Name = each.value["name"]
   }
+}
+resource "aws_route53_record" "records" {
+  for_each = var.components
+  zone_id = "Z09466133SH7C438NSMD2"
+  name    = "${each.value["name"]}.naveendevops2.online"
+  type    = "A"
+  ttl     = 30
+  records = [aws_instance.instance[each.value["name"]].private_ip]
 }
