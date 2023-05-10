@@ -11,7 +11,9 @@ resource "aws_instance" "instance" {
   }
 }
 resource "null_resource" "provisioner" {
+
   depends_on = [aws_instance.instance,aws_route53_record.records]
+
   for_each = var.components
 
   provisioner "remote-exec" {
@@ -25,7 +27,7 @@ resource "null_resource" "provisioner" {
       "rm -rf roboshop-shell",
       "git clone http://github.com/naveen2513/roboshop-shell.git",
       "cd roboshop-shell",
-      "sudo bash ${each.value["name"]}.sh"
+      "sudo bash ${each.value["name"]}.sh ${each.value["password"]} "
     ]
   }
 }

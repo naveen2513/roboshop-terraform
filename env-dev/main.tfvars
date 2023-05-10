@@ -3,10 +3,6 @@ components = {
     name = "frontend"
     instance_type = "t3.small"
   }
-  frontend = {
-    name = "frontend"
-    instance_type = "t3.small"
-  }
   mongodb = {
     name = "mongodb"
     instance_type = "t3.small"
@@ -26,10 +22,12 @@ components = {
   mysql = {
     name = "mysql"
     instance_type = "t3.small"
+    password = "Roboshop@1"
   }
   rabbitmq = {
     name = "rabbitmq"
     instance_type = "t3.small"
+    password = "roboshop123"
   }
   redis = {
     name = "redis"
@@ -38,6 +36,7 @@ components = {
   payment = {
     name = "payment"
     instance_type = "t3.small"
+    password = "roboshop123"
   }
   shipping = {
     name = "shipping"
