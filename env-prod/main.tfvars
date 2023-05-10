@@ -3,10 +3,6 @@ components = {
     name = "frontend"
     instance_type = "t3.small"
   }
-  frontend = {
-    name = "frontend"
-    instance_type = "t3.small"
-  }
   mongodb = {
     name = "mongodb"
     instance_type = "t3.small"
@@ -38,7 +34,7 @@ components = {
   payment = {
     name = "payment"
     instance_type = "t3.small"
-    password = "roboshop123"
+
 
   }
   shipping = {
