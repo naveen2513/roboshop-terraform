@@ -8,9 +8,9 @@ resource "aws_instance" "instance" {
   tags = {
     Name = each.value["name"]
   }
-}
 
-provisioner "remote-exec" {
+
+ provisioner "remote-exec" {
 
   connection {
     type     = "ssh"
