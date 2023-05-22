@@ -59,11 +59,10 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids =[ data.aws_security_group.allow-all.id ]
 
   tags = {
-    Name = "frontend"
-  }
+    Name = var.components[each.value["name"]]
 }
 
-resource "aws_route53_record" "payment" {
+resource "aws_route53_record" "records" {
   for_each = var.components
   zone_id = "Z09466133SH7C438NSMD2"
   name    = "${each.value["name"]}.naveendevops2.online"
