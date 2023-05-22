@@ -46,7 +46,7 @@ variable "components" {
       name = "rabbitmq"
       instant_type = "t3.micro"
     }
-    frontend ={
+    payment ={
       name = "payment"
       instant_type = "t3.micro"
     }
