@@ -4,157 +4,70 @@ data "aws_ami" "centos" {
   owners           = ["973714476881"]
 }
 
-variable "instance_type" {
-  default = "t3.micro"
+data "aws_security_group" "allow-all" {
+  name = "allow-all"
 }
 
-resource "aws_instance" "frontend" {
+variable "components" {
+  default ={
+    frontend ={
+      name = "frontend"
+      instant_type = "t3.micro"
+    }
+    mongodb ={
+      name = "mongodb"
+      instant_type = "t3.micro"
+    }
+    catalogue ={
+      name = "catalogue"
+      instant_type = "t3.micro"
+    }
+    redis ={
+      name = "redis"
+      instant_type = "t3.micro"
+    }
+    cart ={
+      name = "cart"
+      instant_type = "t3.micro"
+    }
+    user ={
+      name = "user"
+      instant_type = "t3.micro"
+    }
+    mysql ={
+      name = "mysql"
+      instant_type = "t3.micro"
+    }
+    shipping ={
+      name = "shipping"
+      instant_type = "t3.micro"
+    }
+    rabbitmq ={
+      name = "rabbitmq"
+      instant_type = "t3.micro"
+    }
+    frontend ={
+      name = "payment"
+      instant_type = "t3.micro"
+    }
+  }
+}
+resource "aws_instance" "instance" {
+  for_each = var.components
   ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
+  instance_type = each.value["instant_type"]
+  vpc_security_group_ids =[ data.aws_security_group.allow-all.id ]
 
   tags = {
     Name = "frontend"
   }
 }
-resource "aws_route53_record" "frontend" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.frontend.private_ip]
-}
-resource "aws_instance" "mongodb" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
 
-  tags = {
-    Name = "mongodb"
-  }
-}
-resource "aws_route53_record" "monogodb" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.mongodb.private_ip]
-}
-resource "aws_instance" "catalogue" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "catalogue"
-  }
-}
-resource "aws_route53_record" "catalogue" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.catalogue.private_ip]
-}
-resource "aws_instance" "user" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "user"
-  }
-}
-resource "aws_route53_record" "user" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.user.private_ip]
-}
-resource "aws_instance" "cart" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "cart"
-  }
-}
-resource "aws_route53_record" "cart" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.cart.private_ip]
-}
-resource "aws_instance" "redis" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "redis"
-  }
-}
-resource "aws_route53_record" "redis" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.redis.private_ip]
-}
-resource "aws_instance" "mysql" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "mysql"
-  }
-}
-resource "aws_route53_record" "mysql" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.mysql.private_ip]
-}
-resource "aws_instance" "shipping" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "shipping"
-  }
-}
-resource "aws_route53_record" "shipping" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.shipping.private_ip]
-}
-resource "aws_instance" "rabbitmq" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "rabbitmq"
-  }
-}
-resource "aws_route53_record" "rabbitmq" {
-  zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
-  type    = "A"
-  ttl     = 30
-  records = [aws_instance.rabbitmq.private_ip]
-}
-resource "aws_instance" "payment" {
-  ami           = data.aws_ami.centos.image_id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = "payment"
-  }
-}
 resource "aws_route53_record" "payment" {
+  for_each = var.components
   zone_id = "Z09466133SH7C438NSMD2"
-  name    = "frontend.naveendevops2.online"
+  name    = "${each.value["name"]}.naveendevops2.online"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.payment.private_ip]
+  records = [aws_instance.instance[each.value["name"]].private_ip]
 }
