@@ -77,7 +77,7 @@ resource "null_resource" "provisinor" {
       "rm -rf roboshop-scripting",
       "git clone http://github.com/naveen2513/roboshop-scripting",
       "cd roboshop-scripting",
-      " sudo bash ${each.value["name"]}.sh ${lookup(each.value, "password" "null")}"
+      " sudo bash ${each.value["name"]}.sh ${lookup(each.value, "password", "null")}"
     ]
   }
 
