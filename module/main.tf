@@ -7,7 +7,7 @@ resource "aws_instance" "instance" {
     Name = var.components_name
   }
 }
-resource "null_resource" "provisinor" {
+resource "null_resource" "provisioner" {
   depends_on = [aws_instance.instance,aws_route53_record.records]
 
   provisioner "remote-exec" {
