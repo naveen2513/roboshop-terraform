@@ -22,7 +22,7 @@ resource "null_resource" "provisinor" {
       "rm -rf roboshop-scripting",
       "git clone http://github.com/naveen2513/roboshop-scripting",
       "cd roboshop-scripting",
-      " sudo bash ${var.components_name}.sh ${lookup(var.password}"
+      " sudo bash ${var.components_name}.sh ${var.password}"
     ]
   }
 
@@ -31,10 +31,9 @@ resource "null_resource" "provisinor" {
 
 
 resource "aws_route53_record" "records" {
-  for_each = var.components
   zone_id = "Z09466133SH7C438NSMD2"
   name    = "${var.components_name}.naveendevops2.online"
   type    = "A"
   ttl     = 30
-  records = [aws_instance.instance[each.value["name"]].private_ip]
+  records = [aws_instance.instance.private_ip]
 }
