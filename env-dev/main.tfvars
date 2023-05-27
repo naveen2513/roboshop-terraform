@@ -1,18 +1,10 @@
-components = {
+app_servers = {
   frontend ={
     name = "frontend"
     instant_type = "t3.micro"
   }
-  mongodb ={
-    name = "mongodb"
-    instant_type = "t3.micro"
-  }
   catalogue ={
     name = "catalogue"
-    instant_type = "t3.micro"
-  }
-  redis ={
-    name = "redis"
     instant_type = "t3.micro"
   }
   cart ={
@@ -23,21 +15,11 @@ components = {
     name = "user"
     instant_type = "t3.micro"
   }
-  mysql ={
-    name = "mysql"
-    instant_type = "t3.micro"
-    password = "RoboShop@1"
-  }
   shipping ={
     name = "shipping"
     instant_type = "t3.micro"
     password = "RoboShop@1"
 
-  }
-  rabbitmq ={
-    name = "rabbitmq"
-    instant_type = "t3.micro"
-    password = "roboshop123"
   }
   payment ={
     name = "payment"
@@ -48,3 +30,24 @@ components = {
 }
 
 env = "dev"
+
+database_servers = {
+  redis ={
+    name = "redis"
+    instant_type = "t3.micro"
+  }
+  rabbitmq ={
+    name = "rabbitmq"
+    instant_type = "t3.micro"
+    password = "roboshop123"
+  }
+  mysql ={
+    name = "mysql"
+    instant_type = "t3.micro"
+    password = "RoboShop@1"
+  }
+  mongodb ={
+    name = "mongodb"
+    instant_type = "t3.micro"
+  }
+}
