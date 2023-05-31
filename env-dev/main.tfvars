@@ -29,7 +29,7 @@ app_servers = {
 
 }
 
-env = "dev"
+
 
 database_servers = {
   redis ={
@@ -51,3 +51,5 @@ database_servers = {
     instant_type = "t3.micro"
   }
 }
+
+env = "dev"
