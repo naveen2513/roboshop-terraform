@@ -8,7 +8,6 @@ resource "aws_instance" "instance" {
   }
 }
 resource "null_resource" "provisioner" {
-  count = var.provisioner ? 1 : 0
   depends_on = [aws_instance.instance,aws_route53_record.records]
 
   provisioner "remote-exec" {
@@ -19,14 +18,8 @@ resource "null_resource" "provisioner" {
       password = "DevOps321"
       host     = aws_instance.instance.private_ip
     }
-    inline = [
-      "rm -rf roboshop-scripting",
-      "git clone http://github.com/naveen2513/roboshop-scripting",
-      "cd roboshop-scripting",
-      " sudo bash ${var.components_name}.sh ${var.password}"
-    ]
+    inline = var.app_type == "db" ? local.db_commands : local.app_commands
   }
-
 }
 
 
