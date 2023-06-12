@@ -7,7 +7,8 @@ module "database-servers" {
   instant_type = each.value["instant_type"]
   env = var.env
   provisioner = true
-  app_type="db"
+
+
 
 }
 
@@ -20,6 +21,5 @@ module "app-servers" {
   password = lookup(each.value, "password", "null" )
   instant_type = each.value["instant_type"]
   env = var.env
-  provisioner = true
-  app_type="app"
+
 }
